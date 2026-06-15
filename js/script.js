@@ -330,5 +330,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // === PARTNERS MARQUEE SPHERICAL GLOBE EFFECT ===
+  var marquee = document.querySelector('.partners-marquee');
+  var logoItems = document.querySelectorAll('.partner-logo-item');
+  if (marquee && logoItems.length) {
+    function updateSphericalLogoScale() {
+      var mRect = marquee.getBoundingClientRect();
+      if (mRect.bottom > 0 && mRect.top < window.innerHeight) {
+        var mCenter = mRect.left + mRect.width / 2;
+        var halfW = mRect.width / 2;
+        
+        logoItems.forEach(function (item) {
+          var itemRect = item.getBoundingClientRect();
+          var itemCenter = itemRect.left + itemRect.width / 2;
+          
+          var t = (itemCenter - mCenter) / halfW;
+          t = Math.max(-1.2, Math.min(1.2, t));
+          
+          var absT = Math.abs(t);
+          var factor = Math.max(0, 1 - absT * absT);
+          
+          var scale = 0.65 + 0.45 * factor;
+          if (item.matches(':hover')) {
+            scale *= 1.12;
+          }
+          
+          var opacity = 0.3 + 0.7 * factor;
+          var translateY = 16 * (absT * absT);
+          var rotateY = t * 25;
+          
+          item.style.transform = 'translate3d(0, ' + translateY + 'px, 0) scale(' + scale + ') rotateY(' + rotateY + 'deg)';
+          item.style.opacity = opacity;
+        });
+      }
+      requestAnimationFrame(updateSphericalLogoScale);
+    }
+    requestAnimationFrame(updateSphericalLogoScale);
+  }
+
 });
 
