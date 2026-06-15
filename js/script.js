@@ -368,5 +368,94 @@ document.addEventListener('DOMContentLoaded', function () {
     requestAnimationFrame(updateSphericalLogoScale);
   }
 
+  // === DYNAMIC COMPANY PROFILE PDF EXPORT ===
+  window.exportBrochure = function () {
+    var element = document.getElementById('brochure-export-template');
+    if (!element) return;
+
+    var activeLang = document.documentElement.getAttribute('lang') || 'id';
+    var fileNameLangSuffix = activeLang.toUpperCase();
+    var pdfFileName = 'Company_Profile_PT_Citra_Dermaga_Perkasa_' + fileNameLangSuffix + '.pdf';
+
+    var dlBtn = document.getElementById('btn-download-brochure');
+    var originalHTML = dlBtn ? dlBtn.innerHTML : '';
+
+    function resetBtn() {
+      if (dlBtn) {
+        dlBtn.disabled = false;
+        dlBtn.style.opacity = '';
+        dlBtn.innerHTML = originalHTML;
+      }
+    }
+
+    function showError(msg) {
+      if (dlBtn) {
+        dlBtn.innerHTML = '<span style="color:#ff6b6b;">' + msg + '</span>';
+        setTimeout(resetBtn, 3000);
+      }
+    }
+
+    // Mark as generating
+    if (dlBtn) {
+      dlBtn.disabled = true;
+      dlBtn.style.opacity = '0.75';
+      dlBtn.innerHTML = '<span style="display:inline-block;animation:spin 1s linear infinite;margin-right:6px;vertical-align:middle;">&#8635;</span> Processing...';
+    }
+
+    element.style.position = 'relative';
+    element.style.left = '0';
+    element.style.top = '0';
+
+    // Check if html2pdf is loaded
+    if (typeof html2pdf !== 'undefined' && html2pdf) {
+      var opt = {
+        margin:       0,
+        filename:     pdfFileName,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true,
+          logging: false,
+          letterRendering: true,
+          allowTaint: true
+        },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(function() {
+        element.style.position = 'absolute';
+        element.style.left = '-9999px';
+        element.style.top = '-9999px';
+        resetBtn();
+      }).catch(function(err) {
+        console.error('PDF Export Error:', err);
+        element.style.position = 'absolute';
+        element.style.left = '-9999px';
+        element.style.top = '-9999px';
+        showError('Gagal. Coba metode alternatif...');
+        // Fallback to print
+        setTimeout(function() { window.print(); }, 500);
+      });
+    } else {
+      // html2pdf not loaded — use print fallback
+      element.style.position = 'absolute';
+      element.style.left = '-9999px';
+      element.style.top = '-9999px';
+      showError('Gunakan Ctrl+P untuk cetak PDF');
+      setTimeout(function() { window.print(); resetBtn(); }, 300);
+    }
+  };
+
+  // === HERO BACKGROUND SLIDESHOW (Ken Burns effect) ===
+  var slides = document.querySelectorAll('.hero-slide');
+  if (slides.length > 1) {
+    var currentSlide = 0;
+    setInterval(function () {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 6000);
+  }
+
 });
 

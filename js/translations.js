@@ -31,6 +31,7 @@ window.translations = {
     "about-title": "PT. Citra Dermaga Perkasa Logistik",
     "about-p1": "Berdiri sejak 2006, PT. Citra Dermaga Perkasa Logistik (CDP Logistik) telah berkembang menjadi salah satu penyedia jasa logistik terpadu yang terpercaya di Indonesia. Berawal dari layanan bongkar muat di Pelabuhan Tanjung Priok, Jakarta, kami kini hadir dengan jangkauan layanan yang mencakup freight forwarding, pergudangan, distribusi, dan manajemen rantai pasok.",
     "about-p2": "Kami melayani berbagai sektor industri — dari manufaktur, perdagangan, hingga proyek-proyek infrastruktur — dengan standar operasional yang ketat dan komitmen terhadap keselamatan serta ketepatan waktu.",
+    "about-p3": "Dengan pengalaman lebih dari 18 tahun, kami telah membangun jaringan mitra yang solid di berbagai kota di Indonesia, menjadikan kami pilihan utama untuk solusi logistik terpadu.",
     "about-btn": "Lihat Layanan Kami",
     
     // Visi Misi
@@ -202,7 +203,13 @@ window.translations = {
     
     "footer-col3-title": "Kontak",
     "footer-contact-addr": "Enggano Megah Blok B No.9M, Tanjung Priok, Jakarta Utara 17310",
-    "footer-copyright": "&copy; 2026 PT. Citra Dermaga Perkasa Logistik. All rights reserved."
+    "footer-copyright": "&copy; 2026 PT. Citra Dermaga Perkasa Logistik. All rights reserved.",
+    "footer-download": "Unduh Profile PDF",
+    "hero-btn-download": "Unduh Profile",
+    "brochure-cover-tagline": "Solusi Logistik Terpadu & Terpercaya",
+    "brochure-page": "Halaman",
+    "brochure-values-title": "Nilai-Nilai Perusahaan",
+    "brochure-values-list": "Integritas & Kepercayaan &bull; Mutu & Keselamatan Kerja &bull; Profesionalisme &bull; Inovasi Berkelanjutan"
   },
   en: {
     // Primary Meta
@@ -402,7 +409,13 @@ window.translations = {
     
     "footer-col3-title": "Contact",
     "footer-contact-addr": "Enggano Megah Complex Blok B No. 9M, Tanjung Priok, North Jakarta 17310",
-    "footer-copyright": "&copy; 2026 PT Citra Dermaga Perkasa Logistics. All rights reserved."
+    "footer-copyright": "&copy; 2026 PT Citra Dermaga Perkasa Logistics. All rights reserved.",
+    "footer-download": "Download PDF Profile",
+    "hero-btn-download": "Download Profile",
+    "brochure-cover-tagline": "Integrated & Trusted Logistics Solutions",
+    "brochure-page": "Page",
+    "brochure-values-title": "Corporate Core Values",
+    "brochure-values-list": "Integrity & Trust &bull; Quality & Workplace Safety &bull; Professionalism &bull; Continuous Innovation"
   },
   zh: {
     // Primary Meta
@@ -602,6 +615,12 @@ window.translations = {
     
     "footer-col3-title": "联络方式",
     "footer-contact-addr": "印尼北雅加达丹绒普瑞克恩加诺美佳办公区 B 栋 9M 号 邮编 17310",
-    "footer-copyright": "&copy; 2026 PT Citra Dermaga Perkasa 综合物流。版权所有。"
+    "footer-copyright": "&copy; 2026 PT Citra Dermaga Perkasa 综合物流。版权所有。",
+    "footer-download": "下载 PDF 简介",
+    "hero-btn-download": "下载公司简介",
+    "brochure-cover-tagline": "综合且值得信赖的物流解决方案",
+    "brochure-page": "页",
+    "brochure-values-title": "公司核心价值观",
+    "brochure-values-list": "诚信与信任 &bull; 质量与职业安全 &bull; 专业精神 &bull; 持续创新"
   }
 };
