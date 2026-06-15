@@ -1,0 +1,6 @@
+# robots.txt — PT. Citra Dermaga Perkasa Logistik
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.cdplogistik.com/sitemap.xml
