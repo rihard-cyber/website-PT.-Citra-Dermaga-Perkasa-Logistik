@@ -1,4 +1,4 @@
-/* Print fallback for brochure PDF export */
+/* Print fallback for brochure PDF export — Deep Sea Industrial Luxury */
 * {
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
@@ -7,10 +7,8 @@
 body, html {
   margin: 0;
   padding: 0;
-  background: #faf8f5;
 }
 
-/* Hide everything except brochure template */
 body > *:not(#brochure-export-template):not(.brochure-print-template) {
   display: none !important;
 }
@@ -24,9 +22,8 @@ body > *:not(#brochure-export-template):not(.brochure-print-template) {
   width: 210mm;
   padding: 0;
   margin: 0;
-  background: #faf8f5;
   box-shadow: none;
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: 'Open Sans', 'Inter', sans-serif;
 }
 
 .brochure-page {
@@ -37,37 +34,17 @@ body > *:not(#brochure-export-template):not(.brochure-print-template) {
   overflow: hidden;
 }
 
+.brochure-page:last-child {
+  page-break-after: avoid !important;
+}
+
 .brochure-print-template img,
 #brochure-export-template img {
   max-width: 100%;
   page-break-inside: avoid;
 }
 
-.brochure-print-template h1,
-.brochure-print-template h2,
-.brochure-print-template h3,
-.brochure-print-template h4,
-#brochure-export-template h1,
-#brochure-export-template h2,
-#brochure-export-template h3,
-#brochure-export-template h4 {
-  page-break-after: avoid;
-}
-
-/* Cover pages need dark background */
-.cover-page,
-.back-cover-page {
-  background: #0a1628 !important;
-  -webkit-print-color-adjust: exact !important;
-  print-color-adjust: exact !important;
-}
-
-/* Gold gradient text fallback */
-.cover-middle h1 em {
-  color: #d4af37;
-}
-
 @page {
-  size: A4;
+  size: A4 portrait;
   margin: 0;
 }

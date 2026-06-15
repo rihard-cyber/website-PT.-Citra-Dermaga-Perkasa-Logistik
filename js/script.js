@@ -408,34 +408,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check if html2pdf is loaded
     if (typeof html2pdf !== 'undefined' && html2pdf) {
-      var opt = {
-        margin:       0,
-        filename:     pdfFileName,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-          scale: 2, 
+      var pages = element.querySelectorAll('.brochure-page');
+      if (!pages.length) {
+        element.style.position = 'absolute';
+        element.style.left = '-9999px';
+        element.style.top = '-9999px';
+        showError('Tidak ada halaman');
+        return;
+      }
+
+      var jsPDFConstructor = html2pdf.jsPDF || window.jsPDF || (window.jspdf && window.jspdf.jsPDF);
+      if (!jsPDFConstructor) {
+        // Fallback to html2pdf with legacy css mode
+        var opt = {
+          margin: 0,
+          filename: pdfFileName,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true, allowTaint: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css', 'legacy'] }
+        };
+        html2pdf().set(opt).from(element).save().then(function() {
+          element.style.position = 'absolute';
+          element.style.left = '-9999px';
+          element.style.top = '-9999px';
+          resetBtn();
+        }).catch(function(err) {
+          console.error('PDF Export Error:', err);
+          element.style.position = 'absolute';
+          element.style.left = '-9999px';
+          element.style.top = '-9999px';
+          showError('Gagal. Coba metode alternatif...');
+          setTimeout(function() { window.print(); }, 500);
+        });
+        return;
+      }
+
+      var pdf = new jsPDFConstructor('p', 'mm', 'a4');
+      var idx = 0;
+      var total = pages.length;
+
+      function renderNext() {
+        if (idx >= total) {
+          pdf.save(pdfFileName);
+          element.style.position = 'absolute';
+          element.style.left = '-9999px';
+          element.style.top = '-9999px';
+          resetBtn();
+          return;
+        }
+
+        html2canvas(pages[idx], {
+          scale: 2,
           useCORS: true,
           logging: false,
           letterRendering: true,
           allowTaint: true
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
+        }).then(function(canvas) {
+          var imgData = canvas.toDataURL('image/jpeg', 0.98);
+          if (idx > 0) pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+          idx++;
+          renderNext();
+        }).catch(function(err) {
+          console.error('PDF Page ' + (idx + 1) + ' Error:', err);
+          idx++;
+          renderNext();
+        });
+      }
 
-      html2pdf().set(opt).from(element).save().then(function() {
-        element.style.position = 'absolute';
-        element.style.left = '-9999px';
-        element.style.top = '-9999px';
-        resetBtn();
-      }).catch(function(err) {
-        console.error('PDF Export Error:', err);
-        element.style.position = 'absolute';
-        element.style.left = '-9999px';
-        element.style.top = '-9999px';
-        showError('Gagal. Coba metode alternatif...');
-        // Fallback to print
-        setTimeout(function() { window.print(); }, 500);
-      });
+      renderNext();
     } else {
       // html2pdf not loaded — use print fallback
       element.style.position = 'absolute';
